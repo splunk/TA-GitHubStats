@@ -6,7 +6,7 @@
       <fieldForLabel>github_organization</fieldForLabel>
       <fieldForValue>github_organization</fieldForValue>
       <search>
-        <query>github_organization=*
+        <query>index=* github_organization=*
 | dedup github_organization
 | fields github_organization</query>
         <earliest>-24h@h</earliest>
@@ -22,7 +22,7 @@
       <fieldForLabel>repository_name</fieldForLabel>
       <fieldForValue>repository_name</fieldForValue>
       <search>
-        <query>$github_organizations_token$
+        <query>index=* $github_organizations_token$
                 | dedup repository_name
                 | sort +str(repository_name)
                 | fields repository_name</query>
@@ -40,7 +40,7 @@
       <chart>
         <title>Repo Clones Over Time</title>
         <search>
-          <query>$github_organizations_token$ AND $github_repositories_token$
+          <query>index=* $github_organizations_token$ AND $github_repositories_token$
                         endpoint=traffic/clones
                         | spath input=data output=clones path=clones{}
                         | fields repository_id, repository_name, clones
@@ -95,7 +95,7 @@
       <chart>
         <title>Repo Clones</title>
         <search>
-          <query>$github_organizations_token$ AND $github_repositories_token$
+          <query>index=* $github_organizations_token$ AND $github_repositories_token$
                         endpoint=traffic/clones
                         | spath input=data output=clones path=clones{}
                         | fields repository_id, repository_name, clones
@@ -149,7 +149,7 @@
       <chart>
         <title>Unique Repo Clones Over Time</title>
         <search>
-          <query>$github_organizations_token$ AND $github_repositories_token$
+          <query>index=* $github_organizations_token$ AND $github_repositories_token$
                         endpoint=traffic/clones
                         | spath input=data output=clones path=clones{}
                         | fields repository_id, repository_name, clones
@@ -203,7 +203,7 @@
       <chart>
         <title>Unique Repo Clones</title>
         <search>
-          <query>$github_organizations_token$ AND $github_repositories_token$
+          <query>index=* $github_organizations_token$ AND $github_repositories_token$
                         endpoint=traffic/clones
                         | spath input=data output=clones path=clones{}
                         | fields repository_id, repository_name, clones
@@ -257,7 +257,7 @@
       <chart>
         <title>Repo View Counts By Time</title>
         <search>
-          <query>$github_organizations_token$ AND $github_repositories_token$
+          <query>index=* $github_organizations_token$ AND $github_repositories_token$
                         endpoint=traffic/views
                         | spath input=data output=views path=views{}
                         | fields repository_id, repository_name, views
@@ -312,7 +312,7 @@
       <chart>
         <title>Repo View Counts</title>
         <search>
-          <query>$github_organizations_token$ AND $github_repositories_token$
+          <query>index=* $github_organizations_token$ AND $github_repositories_token$
                         endpoint=traffic/views
                         | spath input=data output=views path=views{}
                         | fields repository_id, repository_name, views
@@ -366,7 +366,7 @@
       <chart>
         <title>Unique Repo Views Over Time</title>
         <search>
-          <query>$github_organizations_token$ AND $github_repositories_token$
+          <query>index=* $github_organizations_token$ AND $github_repositories_token$
                         endpoint=traffic/views
                         | spath input=data output=views path=views{}
                         | fields repository_id, repository_name, views
@@ -421,7 +421,7 @@
       <chart>
         <title>Unique Repo Views</title>
         <search>
-          <query>$github_organizations_token$ AND $github_repositories_token$
+          <query>index=* $github_organizations_token$ AND $github_repositories_token$
                         endpoint=traffic/views
                         | spath input=data output=views path=views{}
                         | fields repository_id, repository_name, views
@@ -477,7 +477,7 @@
       <chart>
         <title>Repo Fork Counts</title>
         <search>
-          <query>$github_organizations_token$ AND $github_repositories_token$
+          <query>index=* $github_organizations_token$ AND $github_repositories_token$
                         endpoint=repository
                         | spath input=data output=forks_count path=forks_count
                         | fields repository_id, repository_name, forks_count
