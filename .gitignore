@@ -1,0 +1,10 @@
+# OSX Specific
+.DS_Store
+
+# Python Specific
+*.pyc
+*.pyo
+
+# Splunk Specific
+/local
+/metadata/local.meta
