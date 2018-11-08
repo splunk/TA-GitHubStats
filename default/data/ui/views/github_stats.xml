@@ -7,10 +7,10 @@
       <fieldForValue>github_organization</fieldForValue>
       <search>
         <query>index=* github_organization=*
-| dedup github_organization
-| fields github_organization</query>
-        <earliest>-24h@h</earliest>
-        <latest>now</latest>
+                | dedup github_organization
+                | fields github_organization</query>
+        <earliest>$stats_time_picker.earliest$</earliest>
+        <latest>$stats_time_picker.latest$</latest>
       </search>
       <delimiter> OR </delimiter>
       <prefix>(</prefix>
@@ -26,13 +26,20 @@
                 | dedup repository_name
                 | sort +str(repository_name)
                 | fields repository_name</query>
-        <earliest>-24h@h</earliest>
-        <latest>now</latest>
+        <earliest>$stats_time_picker.earliest$</earliest>
+        <latest>$stats_time_picker.latest$</latest>
       </search>
       <delimiter> OR </delimiter>
       <prefix>(</prefix>
       <suffix>)</suffix>
       <valuePrefix>repository_name=</valuePrefix>
+    </input>
+    <input type="time" searchWhenChanged="true" token="stats_time_picker">
+      <label>Time Range</label>
+      <default>
+        <earliest>-7d@h</earliest>
+        <latest>now</latest>
+      </default>
     </input>
   </fieldset>
   <row>
@@ -51,8 +58,8 @@
                         | dedup repository_id, clone_timestamp
                         | eval _time=strptime(clone_timestamp,"%Y-%m-%dT%H:%M:%S")
                         | timechart span=1d sum(clone_count) by repository_name</query>
-          <earliest>-24h@h</earliest>
-          <latest>now</latest>
+          <earliest>$stats_time_picker.earliest$</earliest>
+          <latest>$stats_time_picker.latest$</latest>
           <sampleRatio>1</sampleRatio>
         </search>
         <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
@@ -105,8 +112,8 @@
                         | spath input=clones output=unique_clone_count path=uniques
                         | dedup repository_id, clone_timestamp
                         | chart sum(clone_count) by repository_name</query>
-          <earliest>-24h@h</earliest>
-          <latest>now</latest>
+          <earliest>$stats_time_picker.earliest$</earliest>
+          <latest>$stats_time_picker.latest$</latest>
           <sampleRatio>1</sampleRatio>
         </search>
         <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
@@ -160,8 +167,8 @@
                         | dedup repository_id, clone_timestamp
                         | eval _time=strptime(clone_timestamp,"%Y-%m-%dT%H:%M:%S")
                         | timechart span=1d sum(unique_clone_count) by repository_name</query>
-          <earliest>-24h@h</earliest>
-          <latest>now</latest>
+          <earliest>$stats_time_picker.earliest$</earliest>
+          <latest>$stats_time_picker.latest$</latest>
           <sampleRatio>1</sampleRatio>
         </search>
         <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
@@ -213,8 +220,8 @@
                         | spath input=clones output=unique_clone_count path=uniques
                         | dedup repository_id, clone_timestamp
                         | chart sum(unique_clone_count) by repository_name</query>
-          <earliest>-24h@h</earliest>
-          <latest>now</latest>
+          <earliest>$stats_time_picker.earliest$</earliest>
+          <latest>$stats_time_picker.latest$</latest>
           <sampleRatio>1</sampleRatio>
         </search>
         <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
@@ -268,8 +275,8 @@
                         | dedup repository_id, view_timestamp
                         | eval _time=strptime(view_timestamp,"%Y-%m-%dT%H:%M:%S")
                         | timechart span=1d sum(view_count) by repository_name</query>
-          <earliest>-24h@h</earliest>
-          <latest>now</latest>
+          <earliest>$stats_time_picker.earliest$</earliest>
+          <latest>$stats_time_picker.latest$</latest>
           <sampleRatio>1</sampleRatio>
         </search>
         <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
@@ -322,8 +329,8 @@
                         | spath input=views output=unique_view_count path=uniques
                         | dedup repository_id, view_timestamp
                         | chart sum(view_count) by repository_name</query>
-          <earliest>-24h@h</earliest>
-          <latest>now</latest>
+          <earliest>$stats_time_picker.earliest$</earliest>
+          <latest>$stats_time_picker.latest$</latest>
           <sampleRatio>1</sampleRatio>
         </search>
         <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
@@ -377,8 +384,8 @@
                         | dedup repository_id, view_timestamp
                         | eval _time=strptime(view_timestamp,"%Y-%m-%dT%H:%M:%S")
                         | timechart span=1d sum(unique_view_count) by repository_name</query>
-          <earliest>-24h@h</earliest>
-          <latest>now</latest>
+          <earliest>$stats_time_picker.earliest$</earliest>
+          <latest>$stats_time_picker.latest$</latest>
           <sampleRatio>1</sampleRatio>
         </search>
         <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
@@ -431,8 +438,8 @@
                         | spath input=views output=unique_view_count path=uniques
                         | dedup repository_id, view_timestamp
                         | chart sum(unique_view_count) by repository_name</query>
-          <earliest>-24h@h</earliest>
-          <latest>now</latest>
+          <earliest>$stats_time_picker.earliest$</earliest>
+          <latest>$stats_time_picker.latest$</latest>
           <sampleRatio>1</sampleRatio>
         </search>
         <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
@@ -483,8 +490,8 @@
                         | fields repository_id, repository_name, forks_count
                         | dedup repository_id
                         | table repository_name, forks_count</query>
-          <earliest>-24h@h</earliest>
-          <latest>now</latest>
+          <earliest>$stats_time_picker.earliest$</earliest>
+          <latest>$stats_time_picker.latest$</latest>
           <sampleRatio>1</sampleRatio>
         </search>
         <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
